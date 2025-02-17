@@ -1,10 +1,13 @@
 :root {
-    --neon-blue: #4aff71;
+    --neon-blue: #74ff4a;
     --neon-purple: #7c3aed;
     --dark-bg: #1a1a1a;
+    --light-bg: #f5f5f5;
     --rest-primary: #e9c46a;
     --rest-secondary: #264653;
     --rest-text: #2a2a2a;
+    --light-text: #2a2a2a;
+    --dark-text: #ffffff;
 }
 
 body {
@@ -15,10 +18,15 @@ body {
     justify-content: center;
     min-height: 100vh;
     margin: 0;
-    background-color: var(--dark-bg);
-    color: white;
+    background-color: var(--light-bg);
+    color: var(--light-text);
     overflow: hidden;
     transition: background-color 0.5s ease;
+}
+
+body.dark-mode {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
 }
 
 .timer-container {
@@ -273,4 +281,29 @@ input:checked + .slider:before {
         font-size: 1rem;
         padding: 0.6rem 1.5rem;
     }
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.theme-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--neon-blue);
+    transition: color 0.3s ease;
+}
+
+.dark-mode .neon-border {
+    background-color: rgba(26, 26, 26, 0.95);
+}
+
+.light-mode .neon-border {
+    background-color: rgba(255, 255, 255, 0.95);
 } 

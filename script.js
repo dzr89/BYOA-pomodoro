@@ -6,15 +6,19 @@ const modeToggle = document.getElementById('modeToggle');
 const timerBorder = document.getElementById('timerBorder');
 const glowEffect = document.getElementById('glowEffect');
 const beachOverlay = document.getElementById('beachOverlay');
+const themeToggle = document.getElementById('themeToggle');
 
 let timeLeft = 25 * 60; // 25 minutes in seconds
 let timerId = null;
 let isRestMode = false;
+let isDarkMode = true; // Default to dark mode
 
 function updateDisplay() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
-    timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    timeDisplay.textContent = timeString;
+    updatePageTitle();
 }
 
 function startTimer() {
@@ -80,7 +84,36 @@ function toggleMode() {
     moreTimeBtn.style.display = 'none';
 }
 
+function toggleTheme() {
+    isDarkMode = themeToggle.checked;
+    document.body.classList.toggle('dark-mode', isDarkMode);
+    document.body.classList.toggle('light-mode', !isDarkMode);
+    
+    // Save preference
+    localStorage.setItem('darkMode', isDarkMode);
+}
+
+function updatePageTitle() {
+    document.title = `${timeDisplay.textContent} - Pomodoro Timer`;
+}
+
 startBtn.addEventListener('click', startTimer);
 resetBtn.addEventListener('click', resetTimer);
 moreTimeBtn.addEventListener('click', addMoreTime);
-modeToggle.addEventListener('click', toggleMode); 
+modeToggle.addEventListener('click', toggleMode);
+themeToggle.addEventListener('click', toggleTheme);
+
+// Initialize theme from saved preference
+const savedDarkMode = localStorage.getItem('darkMode');
+if (savedDarkMode !== null) {
+    isDarkMode = savedDarkMode === 'true';
+    themeToggle.checked = isDarkMode;
+    toggleTheme();
+} else {
+    // Set initial state to dark mode
+    themeToggle.checked = true;
+    toggleTheme();
+}
+
+// Initial page title update
+updatePageTitle(); 
