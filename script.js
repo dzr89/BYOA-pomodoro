@@ -7,6 +7,7 @@ const timerBorder = document.getElementById('timerBorder');
 const glowEffect = document.getElementById('glowEffect');
 const beachOverlay = document.getElementById('beachOverlay');
 const themeToggle = document.getElementById('themeToggle');
+const focusDisplay = document.getElementById('focusDisplay');
 
 let timeLeft = 25 * 60; // 25 minutes in seconds
 let timerId = null;
@@ -23,6 +24,14 @@ function updateDisplay() {
 
 function startTimer() {
     if (timerId === null) {
+        // Only prompt for focus text in focus mode and when starting a new session
+        if (!isRestMode && timeLeft === (25 * 60)) {
+            const focusText = prompt('What will you focus on during this session?');
+            if (focusText) {
+                focusDisplay.textContent = `Focus: ${focusText}`;
+            }
+        }
+
         startBtn.textContent = 'Pause';
         timerId = setInterval(() => {
             timeLeft--;
@@ -55,6 +64,7 @@ function resetTimer() {
     updateDisplay();
     startBtn.textContent = 'Start';
     moreTimeBtn.style.display = 'none'; // Hide button on reset
+    focusDisplay.textContent = ''; // Clear focus text on reset
 }
 
 function addMoreTime() {
@@ -63,7 +73,7 @@ function addMoreTime() {
 }
 
 function toggleMode() {
-    isRestMode = modeToggle.checked;
+    isRestMode = !isRestMode;
     
     // Update timer duration
     timeLeft = isRestMode ? 5 * 60 : 25 * 60;
@@ -77,17 +87,24 @@ function toggleMode() {
     // Toggle visual styles
     document.body.classList.toggle('rest-mode', isRestMode);
     timerBorder.classList.toggle('rest-mode', isRestMode);
-    glowEffect.classList.toggle('rest-mode', isRestMode);
-    beachOverlay.classList.toggle('active', isRestMode);
+    
+    // Clear focus text when switching modes
+    focusDisplay.textContent = '';
+    
+    // Update button text to show what mode you can switch to
+    modeToggle.textContent = isRestMode ? 'Focus Mode' : 'Rest Mode';
     
     // Hide "I Need More Time" button in rest mode
     moreTimeBtn.style.display = 'none';
 }
 
 function toggleTheme() {
-    isDarkMode = themeToggle.checked;
+    isDarkMode = !isDarkMode; // Toggle the boolean
     document.body.classList.toggle('dark-mode', isDarkMode);
     document.body.classList.toggle('light-mode', !isDarkMode);
+    
+    // Update button text to show what theme you can switch to
+    themeToggle.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
     
     // Save preference
     localStorage.setItem('darkMode', isDarkMode);
@@ -107,13 +124,20 @@ themeToggle.addEventListener('click', toggleTheme);
 const savedDarkMode = localStorage.getItem('darkMode');
 if (savedDarkMode !== null) {
     isDarkMode = savedDarkMode === 'true';
-    themeToggle.checked = isDarkMode;
-    toggleTheme();
+    // Update initial button state
+    themeToggle.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
 } else {
     // Set initial state to dark mode
-    themeToggle.checked = true;
-    toggleTheme();
+    isDarkMode = true;
+    themeToggle.textContent = 'Light Mode';
 }
+
+// Set initial visual state
+document.body.classList.toggle('dark-mode', isDarkMode);
+document.body.classList.toggle('light-mode', !isDarkMode);
+
+// Set initial mode button text
+modeToggle.textContent = 'Rest Mode';
 
 // Initial page title update
 updatePageTitle(); 

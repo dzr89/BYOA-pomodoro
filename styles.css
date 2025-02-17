@@ -1,13 +1,12 @@
 :root {
-    --neon-blue: #74ff4a;
-    --neon-purple: #7c3aed;
-    --dark-bg: #1a1a1a;
-    --light-bg: #f5f5f5;
-    --rest-primary: #e9c46a;
-    --rest-secondary: #264653;
-    --rest-text: #2a2a2a;
-    --light-text: #2a2a2a;
-    --dark-text: #ffffff;
+    --primary: #ffffff;
+    --bg-dark: #000000;
+    --bg-light: #ffffff;
+    --text-dark: #000000;
+    --text-light: #ffffff;
+    --gray-light: #e0e0e0;
+    --gray-dark: #333333;
+    --border-color: #ffffff;
 }
 
 body {
@@ -18,15 +17,15 @@ body {
     justify-content: center;
     min-height: 100vh;
     margin: 0;
-    background-color: var(--light-bg);
-    color: var(--light-text);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
     overflow: hidden;
     transition: background-color 0.5s ease;
 }
 
-body.dark-mode {
-    background-color: var(--dark-bg);
-    color: var(--dark-text);
+body.light-mode {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
 }
 
 .timer-container {
@@ -35,31 +34,60 @@ body.dark-mode {
 }
 
 .neon-border {
-    background-color: rgba(26, 26, 26, 0.95);
+    background-color: rgba(0, 0, 0, 0.95);
     padding: 3rem;
     border-radius: 15px;
-    box-shadow: 0 0 30px rgba(74, 158, 255, 0.2),
-                inset 0 0 20px rgba(74, 158, 255, 0.1);
-    border: 2px solid var(--neon-blue);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--border-color);
     text-align: center;
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
 }
 
+.light-mode .neon-border {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2),
+                inset 0 0 20px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--text-dark);
+}
+
 h1 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    text-shadow: 0 0 10px rgba(74, 158, 255, 0.5);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     font-weight: 700;
     letter-spacing: 2px;
+}
+
+.light-mode h1 {
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .time-display {
     font-size: 5rem;
     margin: 2rem 0;
     font-weight: bold;
-    color: var(--neon-purple);
-    text-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
+    color: var(--primary);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.light-mode .time-display {
+    color: var(--text-dark);
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.focus-display {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+    color: var(--primary);
+    font-style: italic;
+    min-height: 1.5em;
+    transition: color 0.3s ease;
+}
+
+.light-mode .focus-display {
+    color: var(--text-dark);
 }
 
 .button-container {
@@ -73,9 +101,9 @@ h1 {
     font-size: 1.2rem;
     padding: 0.8rem 2rem;
     cursor: pointer;
-    background-color: rgba(74, 158, 255, 0.1);
-    color: var(--neon-blue);
-    border: 2px solid var(--neon-blue);
+    background-color: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
     border-radius: 5px;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -83,10 +111,21 @@ h1 {
     margin: 0.5rem;
 }
 
+.light-mode .neon-button {
+    color: var(--text-dark);
+    border: 2px solid var(--text-dark);
+}
+
 .neon-button:hover {
-    background-color: var(--neon-blue);
-    color: var(--dark-bg);
-    box-shadow: 0 0 15px rgba(74, 158, 255, 0.3);
+    background-color: var(--primary);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.light-mode .neon-button:hover {
+    background-color: var(--text-dark);
+    color: var(--bg-light);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .neon-button:disabled {
@@ -102,47 +141,60 @@ h1 {
     left: -25vw;
     background: radial-gradient(
         circle at center,
-        rgba(0, 243, 255, 0.1) 0%,
-        rgba(0, 243, 255, 0.05) 20%,
-        rgba(10, 10, 10, 0) 70%
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.05) 20%,
+        rgba(0, 0, 0, 0) 70%
     );
     pointer-events: none;
     z-index: 0;
 }
 
+.light-mode .glow-effect {
+    background: radial-gradient(
+        circle at center,
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.05) 20%,
+        rgba(0, 0, 0, 0) 70%
+    );
+}
+
 @keyframes borderGlow {
     from {
-        box-shadow: 0 0 20px var(--neon-blue),
-                    inset 0 0 20px var(--neon-blue);
+        box-shadow: 0 0 20px var(--primary),
+                    inset 0 0 20px var(--primary);
     }
     to {
-        box-shadow: 0 0 30px var(--neon-blue),
-                    inset 0 0 30px var(--neon-blue);
+        box-shadow: 0 0 30px var(--primary),
+                    inset 0 0 30px var(--primary);
     }
 }
 
 /* Rest Mode Styles */
 body.rest-mode {
-    background-color: #f8f4e9;
+    background-color: var(--gray-dark);
 }
 
-.neon-border.rest-mode {
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 10px 30px rgba(38, 70, 83, 0.1);
-    border: none;
-    color: var(--rest-text);
-    animation: none;
+.light-mode.rest-mode {
+    background-color: var(--gray-light);
+}
+
+.rest-mode .neon-border {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.light-mode.rest-mode .neon-border {
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .rest-mode h1 {
-    color: var(--rest-secondary);
+    color: var(--text-dark);
     text-shadow: none;
     font-family: 'Pacifico', cursive;
     font-weight: normal;
 }
 
 .rest-mode .time-display {
-    color: var(--rest-secondary);
+    color: var(--text-dark);
     text-shadow: none;
     font-family: 'Pacifico', cursive;
     opacity: 0.9;
@@ -150,8 +202,8 @@ body.rest-mode {
 
 .rest-mode .neon-button {
     background-color: transparent;
-    color: var(--rest-secondary);
-    border: 2px solid var(--rest-secondary);
+    color: var(--text-dark);
+    border: 2px solid var(--text-dark);
     box-shadow: none;
     font-family: 'Helvetica Neue', sans-serif;
     text-transform: none;
@@ -159,102 +211,37 @@ body.rest-mode {
 }
 
 .rest-mode .neon-button:hover {
-    background-color: var(--rest-secondary);
-    color: white;
-    box-shadow: 0 5px 15px rgba(38, 70, 83, 0.2);
+    background-color: var(--text-dark);
+    color: var(--bg-dark);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .beach-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        rgba(255, 255, 255, 0.8),
-        rgba(255, 255, 255, 0.8)
-    ),
-    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600') center/cover;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-    z-index: -1;
-}
-
-.beach-overlay.active {
-    opacity: 1;
+    display: none;
 }
 
 /* Mode Toggle Switch */
-.mode-toggle {
-    margin-top: 1.5rem;
+.mode-toggle, .theme-toggle {
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.8rem;
 }
 
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(74, 158, 255, 0.1);
-    transition: .4s;
-    border-radius: 34px;
-    border: 2px solid var(--neon-blue);
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 2px;
-    background-color: var(--neon-blue);
-    transition: .4s;
-    border-radius: 50%;
-}
-
-.rest-mode .slider {
-    background-color: rgba(38, 70, 83, 0.1);
-    border-color: var(--rest-secondary);
-}
-
-.rest-mode .slider:before {
-    background-color: var(--rest-secondary);
-}
-
-input:checked + .slider:before {
-    transform: translateX(26px);
+.mode-toggle .neon-button, .theme-toggle .neon-button {
+    min-width: 120px;
 }
 
 .mode-label {
     font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--neon-blue);
+    color: var(--primary);
     transition: color 0.3s ease;
 }
 
 .rest-mode .mode-label {
-    color: var(--rest-secondary);
+    color: var(--text-dark);
     font-family: 'Helvetica Neue', sans-serif;
 }
 
@@ -296,12 +283,12 @@ input:checked + .slider:before {
     font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--neon-blue);
+    color: var(--primary);
     transition: color 0.3s ease;
 }
 
 .dark-mode .neon-border {
-    background-color: rgba(26, 26, 26, 0.95);
+    background-color: rgba(0, 0, 0, 0.95);
 }
 
 .light-mode .neon-border {

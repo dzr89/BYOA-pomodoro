@@ -12,29 +12,20 @@
         <div class="neon-border" id="timerBorder">
             <h1>Pomodoro Timer</h1>
             <div class="time-display" id="timeDisplay">25:00</div>
+            <div id="focusDisplay" class="focus-display"></div>
             <div class="button-container">
                 <button id="startBtn" class="neon-button">Start</button>
                 <button id="resetBtn" class="neon-button">Reset</button>
                 <button id="moreTimeBtn" class="neon-button" style="display: none;">I Need More Time</button>
             </div>
             <div class="mode-toggle">
-                <label class="switch">
-                    <input type="checkbox" id="modeToggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="mode-label">Rest Mode</span>
+                <button id="modeToggle" class="neon-button">Rest Mode</button>
             </div>
             <div class="theme-toggle">
-                <label class="switch">
-                    <input type="checkbox" id="themeToggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="theme-label">Dark Mode</span>
+                <button id="themeToggle" class="neon-button">Light Mode</button>
             </div>
         </div>
     </div>
-    <div class="glow-effect" id="glowEffect"></div>
-    <div class="beach-overlay" id="beachOverlay"></div>
 
     <script src="script.js"></script>
 </body>
