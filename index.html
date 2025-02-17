@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="timer-container">
+        <div class="neon-border" id="timerBorder">
+            <h1>Pomodoro Timer</h1>
+            <div class="time-display" id="timeDisplay">25:00</div>
+            <div class="button-container">
+                <button id="startBtn" class="neon-button">Start</button>
+                <button id="resetBtn" class="neon-button">Reset</button>
+                <button id="moreTimeBtn" class="neon-button" style="display: none;">I Need More Time</button>
+            </div>
+            <div class="mode-toggle">
+                <label class="switch">
+                    <input type="checkbox" id="modeToggle">
+                    <span class="slider"></span>
+                </label>
+                <span class="mode-label">Rest Mode</span>
+            </div>
+        </div>
+    </div>
+    <div class="glow-effect" id="glowEffect"></div>
+    <div class="beach-overlay" id="beachOverlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
